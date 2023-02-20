@@ -48,6 +48,7 @@ function SignUp() {
             console.log("Login Completed");
             //console.log(data.idToken)
             localStorage.setItem('email' ,enteredEmail );
+            localStorage.setItem('token', data.idToken);
             authCtx.login(data.idToken);
             history.replace('/home');
         }else{

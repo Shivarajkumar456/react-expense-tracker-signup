@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavbarComponent from './Components/Navbar/Navbar';
 import SignUpPage from './pages/SignUpPage';
-import Home from './pages/Home';
+import HomePage from './pages/HomePage';
+import UpdatePage from './pages/UpdatePage';
 
 function App() {
   return (
@@ -14,7 +15,10 @@ function App() {
           <SignUpPage />
         </Route>
         <Route exact path="/home">
-          <Home />
+          <HomePage />
+        </Route>
+        <Route exact path="/update">
+          <UpdatePage />
         </Route>
         <Route exact path="/products">
           {/* Products page component goes here */}
