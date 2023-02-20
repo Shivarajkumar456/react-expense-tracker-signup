@@ -33,7 +33,7 @@
     margin-bottom: 20px;
   }
   
-  .signup button {
+  .btn-primary {
     padding: 10px;
     font-size: 18px;
     background-color: #007bff;
@@ -43,7 +43,7 @@
     cursor: pointer;
   }
   
-  .signup button:hover {
+  .btn-primary:hover {
     background-color: #0069d9;
   }
 
@@ -61,4 +61,15 @@
     text-decoration: underline;
   }
   
+  .toggle {
+    margin-top: 1rem;
+    background-color: transparent;
+    /* color: #9f5ccc; */
+    border: none;
+    padding: 0.15rem 1.5rem;
+  }
   
+  .toggle:hover {
+    background-color: transparent;
+    color: #ae82cc;
+  }
