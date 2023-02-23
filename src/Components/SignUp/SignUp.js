@@ -1,5 +1,5 @@
 import React, {useState, useRef, Fragment, useContext} from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AuthContext from '../../store/auth-context';
 import './SignUp.css';
 
@@ -62,6 +62,9 @@ function SignUp() {
         history.replace("/")
      })
   }
+  const forgotpswdHandler = ()=> {
+    return history.replace('/forgot-password');
+  }
   return (
     <Fragment>
     <div className="signup">
@@ -72,7 +75,7 @@ function SignUp() {
         ="password" name="password" placeholder='Password' ref={passwordRef} required />
         {!isLogin && <input type="password" id="confirm-password" name="confirm-password" ref={confirmPasswordRef} placeholder='Confirm Password' required />}
         <button type="submit" className="btn-primary">{isLogin ? 'Sign In': 'Sign Up'}</button>
-        {isLogin && <p className='login-prompt '><a href='forgetpassword'>Forget password?</a></p>}
+        {isLogin && <p className='login-prompt '><Link onClick={forgotpswdHandler}>Forget password?</Link></p>}
         
       </form>
       <div className='isLogin'>
