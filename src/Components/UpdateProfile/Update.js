@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 export const Update = () => {
   const [displayName, setDisplayName] = useState('');
   const [photoURL, setPhotoURL] = useState('');
-  const [loading, setLoading] = useState(true);
     const inputFullnameRef = useRef();
     const inputPhotoUrlRef = useRef();
     const history = useHistory();
@@ -33,10 +32,8 @@ export const Update = () => {
         const user = data.users[0];
         setDisplayName(user.displayName);
         setPhotoURL(user.photoUrl);
-        setLoading(false);
       } catch (error) {
         console.log(error.message);
-        setLoading(false);
       }
     };
 

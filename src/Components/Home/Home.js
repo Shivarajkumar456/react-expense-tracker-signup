@@ -26,7 +26,6 @@ const Home = ()=>{
   };
   
     return (<>
-    {console.log(localStorage.getItem('token'))}
     <div className='main-home'>
     <h2 className='margin-auto'>Welcome To Expense Tracker</h2>
     <div className='profile'>

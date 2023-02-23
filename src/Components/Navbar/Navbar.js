@@ -1,8 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar() {
+  const history = useHistory();
+  
+  const logoutHandler = () =>{
+    localStorage.removeItem('email');
+    localStorage.removeItem('token');
+    history.replace('/');
+    alert("Successfully Logout");
+  }
   return (
     <nav className="navbar">
       <div className="navbar-brand">
@@ -11,6 +19,7 @@ function Navbar() {
           <li><Link to="/home" className="navbar-link">Home</Link></li>
           <li><Link to="/products" className="navbar-link">Products</Link></li>
           <li><Link to="/aboutus" className="navbar-link">About Us</Link></li>
+          <li><Link className="navbar-link" onClick={logoutHandler}>LogOut</Link></li>
         </ul>
     </div>
     </nav>

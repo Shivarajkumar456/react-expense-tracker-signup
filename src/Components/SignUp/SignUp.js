@@ -52,6 +52,7 @@ function SignUp() {
             authCtx.login(data.idToken);
             history.replace('/home');
         }else{
+            authCtx.login(data.idToken);
              console.log("Sign up Completed");
              alert("Sign Up Successful");
              history.push('/home');
@@ -67,7 +68,8 @@ function SignUp() {
       <form onSubmit={submitHandler}>
       <h2>{isLogin ? 'Sign In': 'Sign Up'}</h2>
         <input type="email" id="email" name="email" placeholder='Email' ref={emailRef} required />
-        <input type="password" id="password" name="password" placeholder='Password' ref={passwordRef} required />
+        <input type="password" id
+        ="password" name="password" placeholder='Password' ref={passwordRef} required />
         {!isLogin && <input type="password" id="confirm-password" name="confirm-password" ref={confirmPasswordRef} placeholder='Confirm Password' required />}
         <button type="submit" className="btn-primary">{isLogin ? 'Sign In': 'Sign Up'}</button>
         {isLogin && <p className='login-prompt '><a href='forgetpassword'>Forget password?</a></p>}
