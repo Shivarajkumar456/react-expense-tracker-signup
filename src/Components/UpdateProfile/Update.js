@@ -1,15 +1,48 @@
-import React,{useRef} from 'react'
+import React,{useRef, useEffect, useState} from 'react'
 import './Update.css'
 import { useHistory } from 'react-router-dom';
 
 export const Update = () => {
+  const [displayName, setDisplayName] = useState('');
+  const [photoURL, setPhotoURL] = useState('');
+  const [loading, setLoading] = useState(true);
     const inputFullnameRef = useRef();
     const inputPhotoUrlRef = useRef();
     const history = useHistory();
 
     const handleCancel = () => {
         history.goBack();
-      };
+    };
+
+    const fetchUserProfile = async () => {
+      try {
+        const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAGhMOoCkZh2xzJ3X_mtq7XNf2z2AOvrrQ`, {
+          method: 'POST',
+          body: JSON.stringify({
+            idToken: (localStorage.getItem('token')),
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error('Unable to fetch user profile');
+        }
+
+        const user = data.users[0];
+        setDisplayName(user.displayName);
+        setPhotoURL(user.photoUrl);
+        setLoading(false);
+      } catch (error) {
+        console.log(error.message);
+        setLoading(false);
+      }
+    };
+
+    useEffect(() => {
+      fetchUserProfile();
+    }, []);
 
     const profileSubmitHandler=async(event)=>{
         event.preventDefault();
@@ -60,9 +93,9 @@ export const Update = () => {
           </div>
           <div className="form-row">
             <label htmlFor="fullname">Full Name:</label>
-            <input ref={inputFullnameRef} type="text" id="fullname" />
+            <input ref={inputFullnameRef} type="text" id="fullname" defaultValue={displayName} />
             <label htmlFor="profileurl">Profile Photo Url:</label>
-            <input ref={inputPhotoUrlRef} type="text" id="profileurl" />
+            <input ref={inputPhotoUrlRef} type="text" id="profileurl" defaultValue={photoURL}/>
           </div>
           <div className="form-row">
             <button className='submit-button' type="submit">Update</button>
