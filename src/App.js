@@ -5,6 +5,7 @@ import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
 import UpdatePage from './pages/UpdatePage';
 import ForgotPassword from './Components/ForgotPswd/ForgotPswd';
+import Expenses from './Components/Expenses/Expenses';
 
 function App() {
   return (
@@ -23,8 +24,9 @@ function App() {
         <NavbarComponent />
           <UpdatePage />
         </Route>
-        <Route exact path="/products">
+        <Route exact path="/expenses">
         <NavbarComponent />
+        <Expenses />
           {/* Products page component goes here */}
         </Route>
         <Route exact path="/about-us">
