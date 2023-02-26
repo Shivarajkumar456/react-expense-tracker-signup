@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Expenses.css';
 
 const ExpenseList = ({ expenses }) => {
@@ -33,13 +33,45 @@ const Expenses = () => {
     setNewExpense((prevExpense) => ({ ...prevExpense, [name]: value }));
   };
 
+  useEffect(() => {
+    fetch('https://react-expense-tracker-bdc60-default-rtdb.firebaseio.com/expenses.json')
+      .then(response => response.json())
+      .then(data => {
+        const fetchedExpenses = [];
+        for (const key in data) {
+          fetchedExpenses.push({
+            id: key,
+            ...data[key]
+          });
+        }
+        setExpenses(fetchedExpenses);
+      })
+      .catch(error => console.log(error));
+  }, []);
+  
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
     const newId = expenses.length > 0 ? expenses[expenses.length - 1].id + 1 : 1;
     const newExpenseWithId = { ...newExpense, id: newId };
     setExpenses((prevExpenses) => [...prevExpenses, newExpenseWithId]);
     setNewExpense({ amount: '', description: '', category: '' });
+  
+    fetch('https://react-expense-tracker-bdc60-default-rtdb.firebaseio.com/expenses.json', {
+      method: 'POST',
+      body: JSON.stringify(newExpenseWithId),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log('Expense added successfully!');
+        } else {
+          throw new Error('Failed to add expense!');
+        }
+      })
+      .catch(error => console.log(error));
   };
+  
 
   return (
     <div className="expense-tracker">
@@ -72,8 +104,9 @@ const Expenses = () => {
           <select id="category" name="category" value={newExpense.category} onChange={handleInputChange} required>
             <option value="">Select a category</option>
             <option value="Food">Food</option>
-            <option value="Petrol">Petrol</option>
-            <option value="Salary">Salary</option>
+            <option value="Petrol">Electricity</option>
+            <option value="Salary">Entertainment</option>
+            <option value="Salary">Furniture</option>
             <option value="Other">Other</option>
           </select>
         </div>
